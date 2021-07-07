@@ -2,10 +2,7 @@ package com.example.restfulwebservice.user;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UserDaoService {
@@ -15,9 +12,9 @@ public class UserDaoService {
     private static int usersCount=3; //static에 유저 3명넣고시작이니까 이다음서부터 저장되려면 4부터 저장되어야 함
 
     static {
-        users.add(new User(1,"Kenneth", new Date())); //디비연동안하고 여기서는 메모리로만
-        users.add(new User(2,"Alice", new Date()));
-        users.add(new User(3,"Elena", new Date()));
+        users.add(new User(1,"Kenneth", new Date(), "pass1", "701010-1111111")); //디비연동안하고 여기서는 메모리로만
+        users.add(new User(2,"Alice", new Date(), "pass2", "801010-2222222"));
+        users.add(new User(3,"Elena", new Date(), "pass3", "901010-3333333"));
     }
 
     //사용자 전체목록 조회
@@ -61,6 +58,5 @@ public class UserDaoService {
         return null;
     }
 
-    /*public void updateOne(User user) {
-    }*/
+
 }
