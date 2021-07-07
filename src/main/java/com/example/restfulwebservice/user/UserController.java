@@ -1,5 +1,8 @@
 package com.example.restfulwebservice.user;
 
+import org.hibernate.annotations.common.reflection.XMethod;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -9,6 +12,9 @@ import java.net.URI;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 public class UserController {
@@ -24,20 +30,26 @@ public class UserController {
 
     //사용자 전체목록조회
     @GetMapping("/users")
-    public List<User> retrieveAllusers(){
+    public List<User> retrieveAllUsers(){
         return service.findAll();
     }
 
     //사용자 개별조회 (문자형으로 받아온다)
+    //여기에 헤테오스 작업 추가!!!!
     @GetMapping("/users/{id}")
-    public User retrieveUser(@PathVariable int id){
+    public EntityModel<User> retrieveUser(@PathVariable int id){
         User user = service.findOne(id);
         //데이터베이스에 존재하지않은 데이터를 불러와도 200이뜬다 ->존재하지않는 데이터의경우에 예외발생시켜보자
         if (user==null){
             throw new UserNotFoundException(String.format("ID[%s] not found", id));
         }
 
-        return user;
+        //HATEOAS
+        EntityModel<User> model=new EntityModel<>(user);
+        WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllUsers());
+        model.add(linkTo.withRel("all-users")); //리소스객체에 uri값연결
+
+        return model;
     }
 
     //사용자 추가

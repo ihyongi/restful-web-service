@@ -17,6 +17,19 @@
         <java.version>11</java.version>
     </properties>
     <dependencies>
+        <!--Swagger,, 아래는 시각화도구-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+        <!-- HATEOAS -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hateoas</artifactId>
+        </dependency>
+
         <!--xml관련-->
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
