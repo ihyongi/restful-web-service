@@ -49,6 +49,8 @@ public class UserController {
         WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllUsers());
         model.add(linkTo.withRel("all-users")); //리소스객체에 uri값연결
 
+        //hal을 쓰면 이렇게 그때그때 작성하지않더라도 추가사용가능한 링크가 그때마다 만들어진다는 장점이있다
+
         return model;
     }
 
